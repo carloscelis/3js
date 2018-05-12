@@ -1,6 +1,7 @@
 var width = window.innerWidth,
 	height = window.innerHeight;
 var camera, scene, renderer;
+var mesh;
 
 function init(){
 	// field of view (primer elemento)
@@ -26,8 +27,14 @@ function init(){
 	// resize pantalla
 	window.addEventListener("resize", onWindowResize);
 }
+
 function setMesh(){
-	var geometry = new THREE.box
+	// ancho, alto, profundidad
+	var geometry = new THREE.BoxGeometry (200,200,200);
+	// material
+	var material = new THREE.MeshBasicMaterial ({ color: 0xff0000, wireframe: true });
+	mesh = new THREE.Mesh(geometry, material)
+	scene.add(mesh);
 }
 // ancho y alto
 function onWindowResize(){
@@ -44,8 +51,11 @@ function animate(){
 }
 // funcion de dibujo
 function render(){
+	mesh.rotation.x += 0.001;
+	mesh.rotation.y += 0.001;
+	mesh.rotation.z += 0.001;
 	// render dentro del contexto webgl, dibuja escena y camara
-	renderer.render(scene, camera)
+	renderer.render(scene, camera);
 
 }
 // mandar a llamar las funciones para que se hagan
